@@ -1,5 +1,5 @@
 import React from 'react';
-import {AutoForm, AutoField, LongTextField} from 'uniforms-unstyled';
+import {AutoForm, AutoField, LongTextField, SelectField} from 'uniforms-unstyled';
 import PostSchema from '/db/posts/schema';
 
 export default class PostEdit extends React.Component {
@@ -26,6 +26,14 @@ export default class PostEdit extends React.Component {
     render() {
         const {history} = this.props;
         const {post} = this.state;
+        const options = [
+            {label: "Nature", value: "Nature"},
+            {label: "Psychology", value: "Psychology"},
+            {label: "Music", value: "Music"},
+            {label: "Programming", value: "Programming"},
+            {label: "Project Management", value: "Project Management"},
+            {label: "Other", value: "Other"}
+        ];
 
         if (!post) {
             return <div>Loading....</div>
@@ -36,6 +44,7 @@ export default class PostEdit extends React.Component {
                 <AutoForm onSubmit={this.submit} schema={PostSchema} model={post}>
                     <AutoField name="title"/>
                     <LongTextField name="description"/>
+                    <SelectField name="type" options={options}/>
 
                     <button type='submit'>Edit post</button>
                     <button onClick={() => history.push('/posts')}>Back to posts</button>

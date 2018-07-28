@@ -32,6 +32,11 @@ export default class PostList extends React.Component {
                                     history.push("/posts/edit/" + post._id)
                                 }}> Edit post
                                 </button>
+
+                                <button onClick={() => {
+                                    history.push("/posts/view/" + post._id)
+                                }}> View post
+                                </button>
                             </div>
                         )
                     })}
