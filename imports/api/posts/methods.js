@@ -1,5 +1,6 @@
 import {Meteor} from 'meteor/meteor'
 import {Posts} from '/db';
+import {Comments} from '/db';
 
 Meteor.methods({
     'post.create'(post) {
@@ -33,8 +34,22 @@ Meteor.methods({
         return post;
     },
 
+    'post.incrementComments' (_id) {
+        let post = Posts.findOne(_id);
+        post.commentsNumber++;
+
+        Posts.update(_id, {
+            $set: {
+                commentsNumber: post.commentsNumber,
+            }
+        });
+
+        return post;
+    },
+
     'post.remove' (_id){
         Posts.remove(_id);
+        Comments.remove({postId: _id});
     },
 
     'post.get' (_id) {

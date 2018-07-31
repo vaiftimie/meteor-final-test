@@ -34,6 +34,8 @@ export default class PostCreate extends React.Component {
                     <LongTextField name="description"/>
 
                     <HiddenField name="views" value="0"/>
+                    <HiddenField name="commentsNumber" value="0"/>
+                    <HiddenField name="userId" value={Meteor.userId()}/>
                     <HiddenField name="createdAt" value={new Date()}/>
                     <SelectField name="type" options={options}/>
 

@@ -1,14 +1,15 @@
 import SimplSchema from 'simpl-schema';
 
 export default new SimplSchema({
-    title: String,
-    description: String,
     userId: {
         type: String,
         optional: false
     },
-    views: Number,
-    commentsNumber: Number,
+    postId: {
+        type: String,
+        optional: false
+    },
+    text: String,
     createdAt: Date,
-    type: String
+    userEmail: String
 });

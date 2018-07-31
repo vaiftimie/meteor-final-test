@@ -14,5 +14,9 @@ Meteor.methods({
             email: data.email,
             password: data.password
         });
+    },
+    
+    'user.get' (_id) {
+        return Users.findOne(_id);
     }
 });
