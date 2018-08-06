@@ -57,6 +57,13 @@ export default class PostView extends React.Component {
                 alert("There was a problem when atttempting to delete the post comment!");
         });
 
+        Meteor.call('post.decrementComments', this.props.match.params._id, (err, post) => {
+            if (err)
+                alert("There was a problem when attempting to decrement the comments number!");
+            else
+                this.setState({ post: post });
+        });
+
         Meteor.call('comments.getCommentsByPostId', this.props.match.params._id, (err, comments) => {
             if (err)
                 return alert("There was a problem when atttempting to fetch the post comments!");
@@ -68,8 +75,7 @@ export default class PostView extends React.Component {
 
     render() {
         const { history } = this.props;
-        const { post } = this.state;
-        const { comments } = this.state;
+        const { post, comments } = this.state;
 
         if (!post || !comments)
             return <div>Loading....</div>
@@ -85,7 +91,7 @@ export default class PostView extends React.Component {
                 <br></br>
                 <br></br>
                 Post comments:
-                <br></br>
+                 <br></br>
                 <br></br>
                 {comments.map(comment => (
                     <div key={comment._id}>
@@ -106,7 +112,7 @@ export default class PostView extends React.Component {
                         <br></br>
                         <br></br>
                     </div>
-                )).sort((a, b) => a.createdAt < b.createdAt)}
+                ))}
 
                 {Meteor.userId() ?
                     <div className="comment">

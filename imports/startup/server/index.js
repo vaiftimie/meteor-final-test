@@ -4,3 +4,5 @@ import '/imports/api/posts/securedMethods';
 import '/imports/api/posts/publications';
 import '/imports/api/users/methods';
 import '/imports/api/comments/methods';
+import '/imports/api/grapher';
+import '/imports/api/grapher/exposures';

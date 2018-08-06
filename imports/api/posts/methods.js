@@ -1,58 +1,36 @@
-import {Meteor} from 'meteor/meteor'
-import {Posts} from '/db';
-import {Comments} from '/db';
+import { Meteor } from 'meteor/meteor'
+import PostService from '/imports/api/posts/services/PostService';
 
 Meteor.methods({
+    'post.get'(_id) {
+        PostService.get(_id);
+    },
+
+    'post.list'() {
+        return PostService.getAll();
+    },
+
     'post.create'(post) {
-        Posts.insert(post);
+        PostService.create(post);
     },
 
-    'post.list' () {
-        return Posts.find().fetch();
+    'post.remove'(_id) {
+        PostService.remove(_id);
     },
 
-    'post.edit' (_id, post) {
-        Posts.update(_id, {
-            $set: {
-                title: post.title,
-                description: post.description,
-                type: post.type
-            }
-        });
+    'post.edit'(_id, post) {
+        PostService.edit(_id, post);
     },
 
-    'post.incrementViews' (_id) {
-        let post = Posts.findOne(_id);
-        post.views++;
-
-        Posts.update(_id, {
-            $set: {
-                views: post.views,
-            }
-        });
-
-        return post;
+    'post.incrementViews'(_id) {
+        return PostService.incrementViews(_id);
     },
 
-    'post.incrementComments' (_id) {
-        let post = Posts.findOne(_id);
-        post.commentsNumber++;
-
-        Posts.update(_id, {
-            $set: {
-                commentsNumber: post.commentsNumber,
-            }
-        });
-
-        return post;
+    'post.incrementComments'(_id) {
+        return PostService.incrementComments(_id);
     },
 
-    'post.remove' (_id){
-        Posts.remove(_id);
-        Comments.remove({postId: _id});
-    },
-
-    'post.get' (_id) {
-        return Posts.findOne(_id);
+    'post.decrementComments'(_id) {
+        return PostService.decrementComments(_id);
     }
 });

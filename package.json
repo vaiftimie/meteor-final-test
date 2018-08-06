@@ -18,5 +18,19 @@
     "simpl-schema": "^1.4.2",
     "uniforms": "^1.23.0",
     "uniforms-unstyled": "^1.23.0"
-  }
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.3.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-meteor": "^5.0.0",
+    "eslint-plugin-react": "^7.10.0",
+    "lint-staged": "^7.2.0",
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "pretest": "eslint --ignore-path .gitignore ."
+}
 }

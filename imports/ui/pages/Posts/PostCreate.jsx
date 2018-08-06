@@ -1,6 +1,7 @@
 import React from 'react';
 import {AutoForm, AutoField, LongTextField, SelectField, HiddenField} from 'uniforms-unstyled';
 import PostSchema from '/db/posts/schema';
+import PostTagsLabels from '/imports/api/posts/enum/tags';
 
 export default class PostCreate extends React.Component {
     constructor() {
@@ -18,14 +19,7 @@ export default class PostCreate extends React.Component {
 
     render() {
         const {history} = this.props;
-        const options = [
-            {label: "Nature", value: "Nature"},
-            {label: "Psychology", value: "Psychology"},
-            {label: "Music", value: "Music"},
-            {label: "Programming", value: "Programming"},
-            {label: "Project Management", value: "Project Management"},
-            {label: "Other", value: "Other"}
-        ];
+        const options = PostTagsLabels;
 
         return (
             <div className="post">
