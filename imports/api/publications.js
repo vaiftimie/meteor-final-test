@@ -3,7 +3,7 @@ import Posts from '/db/posts/collection';
 import Comments from '/db/comments/collection';
 
 Meteor.publish('posts', function () {
-    return Posts.find();
+    return Posts.find({}, { sort: { createdAt: 1 } });
 });
 
 Meteor.publish('post', function (postId) {

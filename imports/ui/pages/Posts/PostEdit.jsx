@@ -4,7 +4,7 @@ import PostSchema from '/db/posts/schema';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '/db';
-import PostTagsLabels from '/imports/api/posts/enum/tags';
+import PostTagsLabels from '/db/posts/enum/tags';
 
 class PostEdit extends React.Component {
     constructor() {

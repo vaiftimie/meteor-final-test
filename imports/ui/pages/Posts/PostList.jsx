@@ -33,7 +33,7 @@ class PostList extends React.Component {
                     Meteor.userId() ?
                         <div className="post">
                             {posts.map((post) => (
-                                <Post key={post._id} post={post} />)).sort((a, b) => a.createdAt > b.createdAt)}
+                                <Post key={post._id} post={post} />))}
                             <button onClick={this.redirect}>Create a new post</button>
                         </div>
                         :

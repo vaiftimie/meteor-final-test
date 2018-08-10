@@ -64,6 +64,7 @@ class PostView extends React.Component {
                         <AutoForm onSubmit={this.submit} schema={CommentSchema}>
                             <LongTextField name="text" />
 
+                            {/* maybe use hooks? */}
                             <HiddenField name="createdAt" value={new Date()} />
                             <HiddenField name="userId" value={Meteor.userId()} />
                             <HiddenField name="userEmail" value={Meteor.user().emails[0].address} />
