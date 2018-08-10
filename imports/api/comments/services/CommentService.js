@@ -6,8 +6,8 @@ class CommentService {
         Comments.insert(comment);
     }
 
-    static remove(commentId) {
-        Comments.remove(commentId);
+    static remove(comment) {
+        Comments.remove(comment._id);
     }
 
     static getComments(postId) {

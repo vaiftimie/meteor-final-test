@@ -1,32 +1,22 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Posts } from '/db';
+import Post from '/imports/ui/components/Post';
 
-export default class PostList extends React.Component {
+class PostList extends React.Component {
     constructor() {
         super();
-        this.state = { posts: null };
     }
 
-    componentDidMount() {
-        Meteor.call('post.list', (err, posts) => {
-            this.setState({ posts });
-        });
-    }
-
-    _handleDelete(id) {
-        Meteor.call('post.remove', id, (err) => {
-            if (err)
-                alert("For some reason the post could not be deleted!");
-            else
-                Meteor.call('post.list', (err, posts) => {
-                    this.setState({ posts });
-                });
-        });
-
+    redirect = () => {
+        const props = this.props;
+        props.history.push('/posts/create');
     }
 
     render() {
-        const { posts } = this.state;
-        const { history } = this.props;
+        const props = this.props
+        const posts = props.posts;
 
         if (!posts) {
             return <div>Loading....</div>
@@ -34,40 +24,20 @@ export default class PostList extends React.Component {
 
         return (
             <div className="post">
-                {
-                    posts.map((post) => {
-                        return (
-                            <div key={post._id}>
-                                <p>Post id: {post._id} </p>
-                                <p>Post title: {post.title}, Post Description: {post.description} </p>
-                                <p>Number of views: {post.views}</p>
-                                <p>Number of comments: {post.commentsNumber}</p>
-
-
-                                <button onClick={() => {
-                                    history.push("/posts/view/" + post._id)
-                                }}> View post
-                                </button>
-
-                                {Meteor.userId() == post.userId
-                                    ?
-                                    <div className="posterButtons">
-                                        <button onClick={() => {
-                                            history.push("/posts/edit/" + post._id)
-                                        }}> Edit post
-                                    </button>
-                                        <button onClick={this._handleDelete.bind(this, post._id)}>
-                                            Delete post</button>
-                                    </div>
-                                    :
-                                    <div className="posterButtons">
-                                    </div>
-                                }
-                            </div>
-                        )
-                    })}
-                <button onClick={() => history.push('/posts/create')}>Create a new post</button>
+                {posts.map((post) => (
+                    <Post key={post._id} post={post} />)).sort((a, b) => a.createdAt > b.createdAt)}
+                <button onClick={this.redirect}>Create a new post</button>
             </div>
         )
     }
 }
+
+export default withTracker(props => {
+    const handle = Meteor.subscribe('posts');
+
+    return {
+        loading: !handle.ready(),
+        posts: Posts.find().fetch(),
+        ...props
+    };
+})(PostList);

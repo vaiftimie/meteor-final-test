@@ -4,7 +4,6 @@ export default Posts.createQuery({
     $filter({ filters, params, options }) {
         filters._id = params._id
     },
-    $options: {},
     title: 1,
     description: 1,
     userId: 1,

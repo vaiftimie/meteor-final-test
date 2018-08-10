@@ -3,7 +3,8 @@ import PostService from '/imports/api/posts/services/PostService';
 
 Meteor.methods({
     'post.get'(_id) {
-        PostService.get(_id);
+        PostService.incrementViews(_id);
+        return PostService.get(_id);
     },
 
     'post.list'() {
@@ -23,14 +24,14 @@ Meteor.methods({
     },
 
     'post.incrementViews'(_id) {
-        return PostService.incrementViews(_id);
+        PostService.incrementViews(_id);
     },
 
     'post.incrementComments'(_id) {
-        return PostService.incrementComments(_id);
+        PostService.incrementComments(_id);
     },
 
     'post.decrementComments'(_id) {
-        return PostService.decrementComments(_id);
+        PostService.decrementComments(_id);
     }
 });

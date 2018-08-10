@@ -32,42 +32,27 @@ class PostService {
     }
 
     static incrementViews(_id) {
-        let post = Posts.findOne(_id);
-        post.views++;
-
         Posts.update(_id, {
-            $set: {
-                views: post.views,
+            $inc: {
+                views: 1,
             }
         });
-
-        return post;
     }
 
     static incrementComments(_id) {
-        let post = Posts.findOne(_id);
-        post.commentsNumber++;
-
         Posts.update(_id, {
-            $set: {
-                commentsNumber: post.commentsNumber,
+            $inc: {
+                commentsNumber: 1,
             }
         });
-
-        return post;
     }
 
     static decrementComments(_id) {
-        let post = Posts.findOne(_id);
-        post.commentsNumber--;
-
         Posts.update(_id, {
-            $set: {
-                commentsNumber: post.commentsNumber,
+            $inc: {
+                commentsNumber: -1,
             }
         });
-
-        return post;
     }
 }
 

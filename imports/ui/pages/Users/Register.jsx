@@ -1,10 +1,16 @@
-import React, {Component} from 'react';
-import {AutoForm, AutoField, ErrorsField} from 'uniforms-unstyled';
+import React, { Component } from 'react';
+import { AutoForm, AutoField, ErrorsField } from 'uniforms-unstyled';
 import SimpleSchema from 'simpl-schema';
+import { Meteor } from 'meteor/meteor';
 
 export default class Register extends Component {
     constructor() {
         super();
+    }
+
+    redirect = () => {
+        const props = this.props;
+        props.history.push('/posts');
     }
 
     onSubmit = (data) => {
@@ -14,7 +20,7 @@ export default class Register extends Component {
                     if (err) {
                         return alert(err.reason);
                     }
-                    this.props.history.push('/posts');
+                    this.redirect() ;
                 });
             } else {
                 return alert(err.reason)
@@ -22,15 +28,14 @@ export default class Register extends Component {
         });
     };
 
-
     render() {
         return (
             <div className="authentication">
                 <AutoForm schema={RegisterSchema} onSubmit={this.onSubmit}>
-                    <ErrorsField/>
-                    <AutoField name="email" placeholder="Email"/>
-                    <AutoField name="password" type="password" placeholder="Password *"/>
-                    <AutoField name="confirm_password" type="password" placeholder="Confirm password"/>
+                    <ErrorsField />
+                    <AutoField name="email" placeholder="Email" />
+                    <AutoField name="password" type="password" placeholder="Password *" />
+                    <AutoField name="confirm_password" type="password" placeholder="Confirm password" />
                     <button type="submit">Create account</button>
                 </AutoForm>
             </div>
