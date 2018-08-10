@@ -14,6 +14,11 @@ class PostList extends React.Component {
         props.history.push('/posts/create');
     }
 
+    redirectLogin = () => {
+        const props = this.props;
+        props.history.push('/login');
+    }
+
     render() {
         const props = this.props
         const posts = props.posts;
@@ -23,12 +28,20 @@ class PostList extends React.Component {
         }
 
         return (
-            <div className="post">
-                {posts.map((post) => (
-                    <Post key={post._id} post={post} />)).sort((a, b) => a.createdAt > b.createdAt)}
-                <button onClick={this.redirect}>Create a new post</button>
-            </div>
-        )
+            <div>
+                {
+                    Meteor.userId() ?
+                        <div className="post">
+                            {posts.map((post) => (
+                                <Post key={post._id} post={post} />)).sort((a, b) => a.createdAt > b.createdAt)}
+                            <button onClick={this.redirect}>Create a new post</button>
+                        </div>
+                        :
+                        <div>
+                            {this.redirectLogin}
+                        </div>
+                }
+            </div>)
     }
 }
 
